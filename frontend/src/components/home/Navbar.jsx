@@ -2,6 +2,7 @@ import { useState } from "react";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,9 +28,11 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden md:flex items-center space-x-4 ">
-            <Button className="text-gray-300 hover:text-white rounded-2xl">
-              Sign In
-            </Button>
+            <Link to="/login">
+              <Button className="text-gray-300 hover:text-white rounded-2xl">
+                Sign In
+              </Button>
+            </Link>
             <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-2xl">
               Get Started
             </Button>

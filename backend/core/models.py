@@ -69,8 +69,7 @@ class Organizer(models.Model):
         ('EUROPE','Europe'),
         ('ASIA','Asia'),
         ('AFRICA','Africa'),
-        ('AUSTRALIA','Australia'),
-        
+        ('AUSTRALIA','Australia'),   
     ]
     
     user = models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='oraganizer')
