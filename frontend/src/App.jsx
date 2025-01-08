@@ -17,7 +17,6 @@ const App = () => {
     <div className="min-h-screen bg-gray-900">
       {/* Navigation */}
       <Navbar />
-
       {/* Hero Section */}
       <Hero />
 

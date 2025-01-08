@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, ValidationError
-from core.models import Event
+from core.models import Event,Ticket
 
 
 class EventSerializer(ModelSerializer):
@@ -13,3 +13,20 @@ class EventSerializer(ModelSerializer):
         if attrs['start'] > attrs['end']:
             raise ValidationError('The start date must be before the end date')
         return super().validate(attrs)
+    
+    
+class TicketSerializer(ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = ['id','event','price','ticket','quantity']
+        extra_kwargs = {'id': {'read_only': True}}
+        
+    def validate(self, attrs):
+        if attrs['quantity'] < 0:
+            raise ValidationError('The quantity must be greater than 0')
+        return super().validate(attrs)
+    
+    def create(self, validated_data):
+        validated_data['sold_quantity'] = 0 # set the sold quantity to 0
+        return super().create(validated_data)
+    

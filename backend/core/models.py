@@ -135,7 +135,7 @@ class Ticket(models.Model):
     ]
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="tickets")
     ticket = models.CharField(max_length=10,choices=TICKET_TYPES)   
-    max_nb_ticket = models.PositiveIntegerField() # the maximum number of ticket available for the event
+    quantity = models.PositiveIntegerField() # the maximum number of ticket available for the event
     sold_quantity = models.IntegerField()  # the amount of ticket reserved 
     price = models.DecimalField(max_digits=10,decimal_places=0) # the price of the ticket
     coupon_code = models.CharField(max_length=10) # the code to get discount.  
