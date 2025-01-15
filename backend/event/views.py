@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from core.models import Event, Ticket, Organizer
-from .serializers import EventSerializer,TicketSerializer
+from core.models import Event, Ticket, Organizer, Attendee
+from .serializers import EventSerializer, TicketSerializer, AttendeeSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from user.permissions import IsOrgnaizer
+from rest_framework.generics import ListCreateAPIView
 
 class EventViewSet(ModelViewSet):
     """The viwe set for the event model"""
@@ -31,7 +32,7 @@ class EventViewSet(ModelViewSet):
             return EventSerializer 
         return self.serializer_class
     
-
+    
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         print(request.user.id)
@@ -43,7 +44,7 @@ class EventViewSet(ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+ 
 
 class TicketViewSet(ModelViewSet):
     """The view set for the Ticket model"""
@@ -90,3 +91,19 @@ class TicketViewSet(ModelViewSet):
         instance = self.get_object()
         serializer = self.serializer_class(instance)
         return Response(serializer.data)
+    
+
+class AttendeView(ListCreateAPIView):
+    """List the attendees of an event"""
+    serializer_class = AttendeeSerializer
+    queryset = Attendee.objects.all()
+    def list(self, request, *args, **kwargs):
+        event_id = self.kwargs.get('event_id', None)
+        print(event_id)
+        try :
+            print(Attendee.objects.all().values()) 
+            event = Attendee.objects.filter(event__id=event_id)
+            serializer = self.get_serializer(event, many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        except Attendee.DoesNotExist:
+            return Response({'error':'Event does not exist'}, status=status.HTTP_404_NOT_FOUND)    

@@ -7,9 +7,11 @@ import Login from "./pages/Login";
 import { RouterProvider } from "react-router";
 import RegisterAttendee from "./pages/RegisterAttendee";
 import RegisterOrganizer from "./pages/RegisterOrganizer";
-import Home from "./pages/Home";
+import Dashbord from "./pages/Dashbord";
 import Event from "./pages/Event";
 import Layout from "./components/Layout";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />,
+    element: <Dashbord />,
   },
   {
     path: "/event",

@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, ValidationError
-from core.models import Event,Ticket
-
+from core.models import Event, Ticket, Attendee
+from user.serializers import UserSerializer
 
 class EventSerializer(ModelSerializer):
     class Meta:
@@ -30,3 +30,9 @@ class TicketSerializer(ModelSerializer):
         validated_data['sold_quantity'] = 0 # set the sold quantity to 0
         return super().create(validated_data)
     
+
+class AttendeeSerializer(ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Attendee  
+        fields = ['id','user','is_comed','event']  

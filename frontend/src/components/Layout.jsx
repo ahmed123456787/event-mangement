@@ -1,6 +1,5 @@
 import React from "react";
 import TopBar from "./TopBar";
-import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
